@@ -45,7 +45,8 @@
               <label>Campaign Name</label>
               <input ng-model='campaign' placeholder='ex: Adwords_HotelName' type='text'>
             </form>
-            <pre id='finalURL'>{{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_term={keyword}&utm_content={creative}&utm_campaign={{campaign}}&Network={ifContent:Content}{ifSearch:Search}&SiteTarget={placement}</pre>
+            <pre id='finalURL' ng-show='source.adwords'>{{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_term={keyword}&utm_content={creative}&utm_campaign={{campaign}}&Network={ifContent:Content}{ifSearch:Search}&SiteTarget={placement}</pre>
+            <pre id='finalURL' ng-hide='source.adwords'>{{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_campaign={{campaign}}</pre>
             <!-- /%bouton#copyBtn.btn.primary-btn Copy to clipboard -->
             <br>
           </div>
@@ -85,8 +86,8 @@
       //<![CDATA[
         function MyCntrl($scope) {
           $scope.sources = [
-            {name:'Adwords',    type:'PPC'},
-            {name:'Mailchimp',  type:'Emailling'},
+            {name:'Adwords',    type:'PPC', adwords:true},
+            {name:'Mailchimp',  type:'Email'},
             {name:'Facebook',   type:'SocialMedia'},
             {name:'Twitter',    type:'SocialMedia'}
           ];

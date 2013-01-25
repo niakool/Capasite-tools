@@ -42,10 +42,16 @@
               %label Campaign Name
               %input{:type => 'text', "placeholder" => "ex: Adwords_HotelName","ng-model"=>"campaign"}
 
-            %pre#finalURL {{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_term={keyword}&utm_content={creative}&utm_campaign={{campaign}}&Network={ifContent:Content}{ifSearch:Search}&SiteTarget={placement}
+            %pre#finalURL{ "ng-show" => "source.adwords" }
+              {{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_term={keyword}&utm_content={creative}&utm_campaign={{campaign}}&Network={ifContent:Content}{ifSearch:Search}&SiteTarget={placement}
+
+            %pre#finalURL{ "ng-hide" => "source.adwords" }
+              {{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_campaign={{campaign}}
+              
             //%bouton#copyBtn.btn.primary-btn Copy to clipboard
             %br/
 
+            
       %hr/
       %footer
         %p
@@ -77,8 +83,8 @@
     :javascript
       function MyCntrl($scope) {
         $scope.sources = [
-          {name:'Adwords',    type:'PPC'},
-          {name:'Mailchimp',  type:'Emailling'},
+          {name:'Adwords',    type:'PPC', adwords:true},
+          {name:'Mailchimp',  type:'Email'},
           {name:'Facebook',   type:'SocialMedia'},
           {name:'Twitter',    type:'SocialMedia'}
         ];
