@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang='en' ng-app>
+  <head>
+    <meta charset='utf-8'>
+    <title>Capasite Tools</title>
+    <meta content='' name='description'>
+    <meta content='Kevin Granger' name='author'>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- Le styles -->
+    <link href='css/bootstrap.css' rel='stylesheet'>
+    <link href='css/responsive.css' rel='stylesheet'>
+    <!-- Le fav and touch icons -->
+    <!-- /%link{:href => "images/favicon.ico", :rel => "shortcut icon"}/ -->
+    <!-- /%link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}/ -->
+    <!-- /%link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}/ -->
+    <!-- /%link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}/ -->
+  </head>
+  <body>
+    <a href='https://github.com/Shipow/CapasiteTools' id='github'></a>
+    <div class='container'>
+      <div class='navbar navbar-inverse' id='top-menu'>
+        <div class='navbar-inner'>
+          <a class='brand' href='javascript:void(0);'>
+            Capasite tools
+          </a>
+          <ul class='nav'>
+            <li class='active'>
+              <a href='javascript:void(0);'>Link Builder</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='span12'>
+          <div class='panel' ng-controller='MyCntrl'>
+            <h2>Link Builder for Campaign Tracking (Analitycs version)</h2>
+            <form>
+              <label>URL landing</label>
+              <input class='input-xxlarge' ng-model='landingUrl' placeholder='http://example.com/landing-page.html' type='text'>
+              <label>Source</label>
+              <select class='input-medium' ng-model='source' ng-options='s.name group by s.type for s in sources'></select>
+              <label>Campaign Name</label>
+              <input ng-model='campaign' placeholder='ex: Adwords_HotelName' type='text'>
+            </form>
+            <pre id='finalURL'>{{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_term={keyword}&utm_content={creative}&utm_campaign={{campaign}}&Network={ifContent:Content}{ifSearch:Search}&SiteTarget={placement}</pre>
+            <!-- /%bouton#copyBtn.btn.primary-btn Copy to clipboard -->
+            <br>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <footer>
+        <p>
+          &copy; Capasite 2013 -
+          <a href='https://coderbits.com/Shipow'>Kevin Granger</a>
+        </p>
+      </footer>
+    </div>
+    <!-- /container -->
+    <!--
+      Le javascript
+      ==================================================
+    -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+    <!-- /%script{:src => "js/bootstrap/bootstrap-transition.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-alert.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-modal.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-dropdown.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-scrollspy.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-tab.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-tooltip.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-popover.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-button.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-collapse.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-carousel.js"} -->
+    <!-- /%script{:src => "js/bootstrap/bootstrap-typeahead.js"} -->
+    <script src='js/angular.js'></script>
+    <script>
+      //<![CDATA[
+        function MyCntrl($scope) {
+          $scope.sources = [
+            {name:'Adwords',    type:'PPC'},
+            {name:'Mailchimp',  type:'Emailling'},
+            {name:'Facebook',   type:'SocialMedia'},
+            {name:'Twitter',    type:'SocialMedia'}
+          ];
+          $scope.source = $scope.sources[0]; // Adwords
+        }
+      //]]>
+    </script>
+  </body>
+</html>

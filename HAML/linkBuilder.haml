@@ -1,0 +1,84 @@
+!!!
+%html(ng-app){:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title Capasite Tools
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "Kevin Granger", :name => "author"}/
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    / Le styles
+    %link{:href => "css/bootstrap.css", :rel => "stylesheet"}/
+    %link{:href => "css/responsive.css", :rel => "stylesheet"}/
+
+    / Le fav and touch icons
+    //%link{:href => "images/favicon.ico", :rel => "shortcut icon"}/
+    //%link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}/
+    //%link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}/
+    //%link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}/
+
+  %body
+    %a#github{:href => "https://github.com/Shipow/CapasiteTools"}
+
+    .container
+      #top-menu.navbar.navbar-inverse
+        .navbar-inner
+          %a.brand{:href => "javascript:void(0);"}
+            Capasite tools
+          %ul.nav
+            %li.active
+              %a{:href => "javascript:void(0);"} Link Builder
+
+      .row
+        .span12
+          .panel{"ng-controller"=>"MyCntrl"}
+            %h2 Link Builder for Campaign Tracking (Analitycs version)
+            %form
+              %label URL landing
+              %input.input-xxlarge{:type => 'text',"ng-model"=>"landingUrl" ,"placeholder" => "http://example.com/landing-page.html"}
+              %label Source
+              %select.input-medium{"ng-model"=>"source","ng-options"=>"s.name group by s.type for s in sources"}
+              %label Campaign Name
+              %input{:type => 'text', "placeholder" => "ex: Adwords_HotelName","ng-model"=>"campaign"}
+
+            %pre#finalURL {{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_term={keyword}&utm_content={creative}&utm_campaign={{campaign}}&Network={ifContent:Content}{ifSearch:Search}&SiteTarget={placement}
+            //%bouton#copyBtn.btn.primary-btn Copy to clipboard
+            %br/
+
+      %hr/
+      %footer
+        %p
+          &copy; Capasite 2013 -
+          %a{:href => "https://coderbits.com/Shipow"} Kevin Granger
+
+    / /container
+    /
+      Le javascript
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"}
+    //%script{:src => "js/bootstrap/bootstrap-transition.js"}
+    //%script{:src => "js/bootstrap/bootstrap-alert.js"}
+    //%script{:src => "js/bootstrap/bootstrap-modal.js"}
+    //%script{:src => "js/bootstrap/bootstrap-dropdown.js"}
+    //%script{:src => "js/bootstrap/bootstrap-scrollspy.js"}
+    //%script{:src => "js/bootstrap/bootstrap-tab.js"}
+    //%script{:src => "js/bootstrap/bootstrap-tooltip.js"}
+    //%script{:src => "js/bootstrap/bootstrap-popover.js"}
+    //%script{:src => "js/bootstrap/bootstrap-button.js"}
+    //%script{:src => "js/bootstrap/bootstrap-collapse.js"}
+    //%script{:src => "js/bootstrap/bootstrap-carousel.js"}
+    //%script{:src => "js/bootstrap/bootstrap-typeahead.js"}
+
+    %script{:src => "js/angular.js"}
+    :javascript
+      function MyCntrl($scope) {
+        $scope.sources = [
+          {name:'Adwords',    type:'PPC'},
+          {name:'Mailchimp',  type:'Emailling'},
+          {name:'Facebook',   type:'SocialMedia'},
+          {name:'Twitter',    type:'SocialMedia'}
+        ];
+        $scope.source = $scope.sources[0]; // Adwords
+      }
