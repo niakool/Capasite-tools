@@ -12,11 +12,11 @@
     %link{:href => "css/bootstrap.css", :rel => "stylesheet"}/
     %link{:href => "css/responsive.css", :rel => "stylesheet"}/
 
-    / Le fav and touch icons
-    //%link{:href => "images/favicon.ico", :rel => "shortcut icon"}/
-    //%link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}/
-    //%link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}/
-    //%link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}/
+    -#/ Le fav and touch icons
+    -#%link{:href => "images/favicon.ico", :rel => "shortcut icon"}/
+    -#%link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}/
+    -#%link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}/
+    -#%link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}/
 
   %body
     %a#github{:href => "https://github.com/Shipow/Capasite-Tools", :target => "_blank"}
@@ -33,24 +33,83 @@
       .row
         .span12
           .panel{"ng-controller"=>"MyCntrl"}
-            %h2 Link Builder for Campaign Tracking (Analitycs version)
-            %form
-              %label URL landing
-              %input.input-xxlarge{:type => 'text',"ng-model"=>"landingUrl" ,"placeholder" => "http://example.com/landing-page.html"}
-              %label Source
-              %select.input-medium{"ng-model"=>"source","ng-options"=>"s.name group by s.type for s in sources"}
-              %label Campaign Name
-              %input{:type => 'text', "placeholder" => "ex: Adwords_HotelName","ng-model"=>"campaign"}
+            .row-fluid
+              .span6
+                %h2 Link Builder
+                %h3 Campaign Tracking - Analitycs version
+                %form{:name => "MyForm"}
 
-            %pre#finalURL{ "ng-show" => "source.adwords" }
-              {{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_term={keyword}&utm_content={creative}&utm_campaign={{campaign}}&Network={ifContent:Content}{ifSearch:Search}&SiteTarget={placement}
+                  %label URL landing
+                  %input.input-xlarge{:name => "landingUrl", "ng-change" => "change()" ,:type => 'text',"ng-model"=>"landingUrl" ,"placeholder" => "http://example.com/landing-page.html","ng-pattern"=>"regexURL"}(required)
+                  %span.error.label.label-info{"ng-show"=>"status"} Status: {{data}}
+                  %span.error.label.label-warning{"ng-show"=>"MyForm.landingUrl.$error.pattern"} Invalid URL
+                  %span.error.label.label-warning{"ng-show"=>"MyForm.landingUrl.$error.required"} Required
 
-            %pre#finalURL{ "ng-hide" => "source.adwords" }
-              {{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_campaign={{campaign}}
-              
-            //%bouton#copyBtn.btn.primary-btn Copy to clipboard
-            %br/
+                  %label Source
+                  %select.input-medium{"ng-model"=>"source","ng-options"=>"s.name group by s.type for s in sources"}
 
+                  %label Campaign Name
+                  %input{:name => "campaign",:type => 'text', "placeholder" => "ex: Adwords_HotelName","ng-model"=>"campaign"}(required)
+                  %span.error.label.label-warning{"ng-show"=>"MyForm.campaign.$error.required"} Required
+
+                %pre#finalURL{ "ng-show" => "source.adwords" }
+                  {{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_term={keyword}&utm_content={creative}&utm_campaign={{campaign}}&Network={ifContent:Content}{ifSearch:Search}&SiteTarget={placement}
+
+                %pre#finalURL{ "ng-hide" => "source.adwords" }
+                  {{landingUrl}}?utm_source={{source.name}}&utm_medium={{source.type}}&utm_campaign={{campaign}}
+
+                %span.error.label.label-warning{"ng-hide"=>"MyForm.$valid"} Tracking URL incomplete
+                %span.error.label.label-success{"ng-show"=>"MyForm.$valid"} Tracking URL complete
+                  
+                //%bouton#copyBtn.btn.primary-btn Copy to clipboard
+                %br/
+                %br/
+              .span6
+                %h2 Documentation
+                %h3 Why should I use it?
+                %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                %h3 How it work?
+                %p
+                  %strong Campaign Source (utm_source)
+                  Required. Use utm_source to identify a search engine, newsletter name, or other source.
+                %p
+                  %strong Campaign Medium (utm_medium)
+                  Required. Use utm_medium to identify a medium such as email or cost-per- click. 
+                %p
+                  %strong Campaign Term (utm_term)
+                  Used for paid search. Use utm_term to note the keywords for this ad. 
+                %p
+                  %strong Campaign Content (utm_content)
+                  Used for A/B testing and content-targeted ads. Use utm_content to differentiate ads or links that point to the same URL.
+                %p  
+                  %strong Campaign Name (utm_campaign)
+                  Used for keyword analysis. Use utm_campaign to identify a specific product promotion or strategic campaign. 
+                %p
+                  %strong HTTP Status:
+                  %ul
+                    %li.label.label-success 200 OK
+                    %li.label.label-success 301 Moved Permanently
+                    %li.label.label-success 302 Found
+                    %li.label.label-warning 404 Not Found
+                    %li.label.label-warning 500 Internal Server Error
+
+                %h3 What's next?
+                %p  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                %h3 Links
+                %ul
+                  %li
+                    %a{:href =>"http://support.google.com/analytics/bin/answer.py?hl=en&answer=1033867&rd=1"} Documentation on Google Analitycs
+                  %li
+                    %a{:href =>"http://certifiedknowledge.org/blog/using-adwords-dynamic-parameters-in-links/"} Article on Certified Knowledge
+                %h3 About this page
+                %ul
+                  %li HAML
+                  %li Bootstrap
+                  %li Angular.js
+                  %li Sublime Text 2 + Codekit
+                  %li Github
+                %br/
+                %br/
             
       %hr/
       %footer
@@ -66,22 +125,22 @@
       \==================================================
     / Placed at the end of the document so the pages load faster
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"}
-    //%script{:src => "js/bootstrap/bootstrap-transition.js"}
-    //%script{:src => "js/bootstrap/bootstrap-alert.js"}
-    //%script{:src => "js/bootstrap/bootstrap-modal.js"}
-    //%script{:src => "js/bootstrap/bootstrap-dropdown.js"}
-    //%script{:src => "js/bootstrap/bootstrap-scrollspy.js"}
-    //%script{:src => "js/bootstrap/bootstrap-tab.js"}
-    //%script{:src => "js/bootstrap/bootstrap-tooltip.js"}
-    //%script{:src => "js/bootstrap/bootstrap-popover.js"}
-    //%script{:src => "js/bootstrap/bootstrap-button.js"}
-    //%script{:src => "js/bootstrap/bootstrap-collapse.js"}
-    //%script{:src => "js/bootstrap/bootstrap-carousel.js"}
-    //%script{:src => "js/bootstrap/bootstrap-typeahead.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-transition.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-alert.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-modal.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-dropdown.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-scrollspy.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-tab.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-tooltip.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-popover.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-button.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-collapse.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-carousel.js"}
+    -#%script{:src => "js/bootstrap/bootstrap-typeahead.js"}
 
     %script{:src => "js/angular.js"}
     :javascript
-      function MyCntrl($scope) {
+      function MyCntrl($scope, $http) {
         $scope.sources = [
           {name:'Adwords',    type:'PPC', adwords:true},
           {name:'Mailchimp',  type:'Email'},
@@ -89,4 +148,18 @@
           {name:'Twitter',    type:'SocialMedia'}
         ];
         $scope.source = $scope.sources[0]; // Adwords
+
+        $scope.change = function() {
+          delete $scope.status;
+          $http.jsonp('https://coderbits.com/tools/urlcheck?callback=JSON_CALLBACK&url='+$scope.landingUrl).
+            success(function(data, status) {
+                $scope.status = status;
+                $scope.data = data;
+              }).
+            error(function(data, status) {
+                $scope.data = data || "Request failed";
+                $scope.status = status;
+            })
+        };
+        $scope.regexURL = /(https|http):\/\/([_a-z\d\-]+(\.[_a-z\d\-]+)+)(([_a-z\d\-\\\.\/]+[_a-z\d\-\\\/])+)*/;
       }

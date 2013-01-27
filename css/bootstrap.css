@@ -3180,6 +3180,109 @@ button.close {
   .navbar-inverse .btn-navbar:active, .navbar-inverse .btn-navbar.active {
     background-color: black \9; }
 
+.label,
+.badge {
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 10.998px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #fff9d1;
+  vertical-align: baseline;
+  white-space: nowrap;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #999999; }
+
+.label {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px; }
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px; }
+
+.label:empty,
+.badge:empty {
+  display: none; }
+
+a.label:hover, a.badge:hover {
+  color: #fff9d1;
+  text-decoration: none;
+  cursor: pointer; }
+
+.label-important {
+  background-color: #b94a48; }
+
+.label-important[href] {
+  background-color: #953b39; }
+
+.label-warning {
+  background-color: #f89406; }
+
+.label-warning[href] {
+  background-color: #c67605; }
+
+.label-success {
+  background-color: #468847; }
+
+.label-success[href] {
+  background-color: #356635; }
+
+.label-info {
+  background-color: #3a87ad; }
+
+.label-info[href] {
+  background-color: #2d6987; }
+
+.label-inverse {
+  background-color: #333333; }
+
+.label-inverse[href] {
+  background-color: #1a1a1a; }
+
+.badge-important {
+  background-color: #b94a48; }
+
+.badge-important[href] {
+  background-color: #953b39; }
+
+.badge-warning {
+  background-color: #f89406; }
+
+.badge-warning[href] {
+  background-color: #c67605; }
+
+.badge-success {
+  background-color: #468847; }
+
+.badge-success[href] {
+  background-color: #356635; }
+
+.badge-info {
+  background-color: #3a87ad; }
+
+.badge-info[href] {
+  background-color: #2d6987; }
+
+.badge-inverse {
+  background-color: #333333; }
+
+.badge-inverse[href] {
+  background-color: #1a1a1a; }
+
+.btn .label,
+.btn .badge {
+  position: relative;
+  top: -1px; }
+
+.btn-mini .label,
+.btn-mini .badge {
+  top: 0; }
+
 .pull-right {
   float: right; }
 
